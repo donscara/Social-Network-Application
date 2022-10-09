@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% load blog_tags %}
+{% load chat_template_tags %}
+{% load i18n %}
+{% load static %}
+{% include 'navbar.html' %}
+{% block root_content %}
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div id="">
+                {% block blog_content %}
+                {% endblock %}
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+            <div class="p-4" style="background-color: rgb(233, 233, 233);">
+                {% get_friendships user %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock%}

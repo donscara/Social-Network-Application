@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+{% load i18n %}
+{% block title %}{{_('Blog')}}{% endblock %}
+{% block blog_content %}
+<h2 class="text-muted my-3">{{ _('Feed') }}</h2>
+<div class="my-2">
+    {{total_post}} results.
+</div>
+<div class="list-unstyled">
+    {% for post in posts %}
+    <div class="card my-2 shadow">
+        <div class="card-body">
+            <div class="media">
+                <div class="d-flex">
+                    <img src="{{post.author.profile.image.url}}" class="mr-3" style="max-height: 64px; max-width: 64px;"
+                        alt="Post{{post.pk}}">
+                    <a class="text-decoration-none" href="{% url 'users:profile' post.author.username %}">
+                        <p class="mt-0 mb-1 ml-3">@{{post.author.username}}</p>
+                    </a>
+                </div>
+                <a class="text-decoration-none" href="{{post.get_absolute_url}}">
+                    <div class="media-body">
+                        <p>{{post.body}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="card-footer">
+            <small>
+                Published at {{post.published_date}}
+            </small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Since the Page object you are passing to the template is called posts , you include
+the pagination template in the post list template, passing the parameters to render
+it correctly. -->
+{% include "pagination.html" with page=posts %}
+<!-- Django's ListView generic view passes the selected page
+in a variable called page_obj , so you have to edit your post/list.html template
+accordingly to include the paginator using the right variable, as follows -->
+<!-- {% include "pagination.html" with page=page_obj %} -->
+{% endblock %}

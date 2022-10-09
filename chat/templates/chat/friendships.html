@@ -1,0 +1,21 @@
+<div class="my-3">
+    {% if friendships %}
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-dark">
+            <b>Friends</b>
+        </li>
+        {% for friendship in friendships %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{friendship.followed.username}}
+            <a href="{% url 'chat:chat-room' friendship.followed.username %}" class="btn btn-sm btn-primary badge rounded-pill">
+                Direct Message
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-light shadow">
+        <h3>Find a friend!</h3>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,35 @@
+<div class="my-3">
+    {% if latest_posts %}
+    <div class="list-unstyled">
+        {% for post in latest_posts %}
+        <div class="card my-2 shadow">
+            <div class="card-body">
+                <div class="media">
+                    <div class="d-flex">
+                        <img src="{{post.author.profile.image.url}}" class="mr-3"
+                            style="max-height: 64px; max-width: 64px;" alt="Post{{post.pk}}">
+                        <a class="text-decoration-none" href="{% url 'users:profile' post.author.username %}">
+                            <p class="mt-0 mb-1 ml-3">@{{post.author.username}}</p>
+                        </a>
+                    </div>
+                    <a class="text-decoration-none" href="{{post.get_absolute_url}}">
+                        <div class="media-body">
+                            <p>{{post.body}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small>
+                    Published at {{post.published_date}}
+                </small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-light shadow">
+      <h3>Not posted yet!</h3>
+    </div>
+    {% endif %}
+</div>
